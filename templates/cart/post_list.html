@@ -2,4 +2,17 @@
 {% load static %}
 {% block content %}
 <div>관리자만 볼 수 있는 전시회 리스트 페이지</div>
+
+<div>
+    {% for post in posts %}
+    <div>
+        <h3>{{post.realname}}</h3>
+        {{post.artist_name}}
+        {{post.intro}}
+        <a href="{% url 'cart:post_detail' post.id %}">...자세히</a>
+        <br>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

@@ -6,6 +6,7 @@ import stripe
 from django.conf import settings
 from order.models import Order, OrderItem
 from .forms import PostForm
+from account.decorators import login_required
 
 # Create your views here.
 def _cart_id(request) :
@@ -129,18 +130,24 @@ def full_remove(request, product_id) :
     return redirect('cart:cart_detail')
 
 # 전시 등록페이지
+def post_list(request):
+    posts = Post.objects.all()
+    login_session = request.session.get('login_session', '')
+    context = {'login_session':login_session, 'posts':posts}
+    return render(request, 'cart/post_list.html', context)
+
+def post_detail(request, id):
+    post = get_object_or_404(Post, pk=id)
+    return render(request, 'cart/post_detail.html', {'post':post})
+# @login_required
 def regist_1(request):
-    return render(request, 'cart/regist_1.html')
+    login_session = request.session.get('login_session', '')
+    context = {'login_session':login_session}
+    return render(request, 'cart/regist_1.html', context)
 def regist_2(request):
     return render(request, 'cart/regist_2.html')
 def regist_3(request):
     return render(request, 'cart/regist_3.html')
-
-def post_list(request):
-    login_session = request.session.get('login_session', '')
-    context = {'login_session':login_session}
-
-    return render(request, 'cart/post_list.html', context)
 
 def regist_4(request):
     login_session = request.session.get('login_session', '')
@@ -157,12 +164,12 @@ def regist_4(request):
         if post_form.is_valid():
             post = Post(
                 realname = post_form.realname,
-                artist_name = post.artist_name,
-                team = post.team,
-                email = post.email,
-                artist_intro = post.artist_intro,
-                post_intro = post.post_intro,
-                post_plan= post.post_plan
+                artist_name = post_form.artist_name,
+                team = post_form.team,
+                email = post_form.email,
+                artist_intro = post_form.artist_intro,
+                post_intro = post_form.post_intro,
+                post_plan= post_form.post_plan
             )
             post.save()
             return redirect('/')

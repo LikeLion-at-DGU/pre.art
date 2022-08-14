@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+작가 본명 : {{post.realname}} <br>
+작가 활동명 : {{post.artist_name}} <br>
+작가 소속 : {{post.team}} <br>
+작가 이메일 : {{post.email}} <br>
+작가 한줄 소개 : {{post.artist_intro}} <br>
+전시 한줄 소개 : {{post.post_intro}} <br>
+전시 기획 의도 : {{post.post_plan}} <br>
+
+{% endblock %}
