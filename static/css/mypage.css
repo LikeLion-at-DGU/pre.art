@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* mypage nav/ */
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
 @charset "UTF-8";
 @import "reset.css";
 @import url('https://fonts.googleapis.com/css?family=Lato:100,300,900');
@@ -21,6 +25,7 @@
     src: url(../font/AppleSDGothicNeoEB.ttf);
 }
 
+<<<<<<< HEAD
 .myp{
     display: flex;
     width: 100%;
@@ -31,15 +36,35 @@
 .mypage_nav{
     width: 16%;
     background-color: #DFD6CD;
+=======
+h1{        
+    font-family: "AppleSDGothicNeoLB";
+}
+.myp{
+    display: flex;
+    width: 100%;
+}
+
+.maypage_nav{
+    position: absolute;
+    width: 18%;
+    background-color: #DFD6CD;
+    height: 100%;
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
     align-items: center;
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
 
 }
+<<<<<<< HEAD
 
 .myp_logo{
     font-family: "AppleSDGothicNeoM";
+=======
+.myp_logo{
+    font-family: "AppleSDGothicNeo";
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
     font-size: 30px;
     margin-top: 40%;
     margin-bottom: 20%;
@@ -47,7 +72,11 @@
 }
 
 .my_nav_btn{
+<<<<<<< HEAD
     margin: 15% 0;
+=======
+    margin: 10% 0;
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
     width: 50%;
     display: flex;
     align-items: center;
@@ -58,6 +87,7 @@
     color: #4C4747;
 
 }
+<<<<<<< HEAD
 
 .mypage_item{
     display: flex;
@@ -72,6 +102,18 @@
     padding: 3% 0;
     width: 80%;
 }
+=======
+.mypage_item{
+    display: flex;
+    width: 80%;
+}
+#profile_block{
+    height: 15%;
+    padding-top: 3%;
+    line-height: 50px;
+    margin-left: 5%;
+}
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
 
 .profile_title{
     font-size: 22px;
@@ -83,17 +125,32 @@
     color: #939393;
     border-bottom: 1px solid #959595;
     width: 100%;
+<<<<<<< HEAD
     margin-top: 2%;
     padding-bottom: 1%;
 }
 
 
 .re_profile{
+=======
+}
+
+.re_profile{
+    position:absolute; 
+    bottom:0px;
+    right: 15px;
+    width: 15%;
+}
+
+#re_profile{
+    padding: 5% 20%;
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
     font-size: 22px;
     border: none;
     border-radius: 50px;
     background-color: #DFD6CD;
     font-family: "AppleSDGothicNeoM";
+<<<<<<< HEAD
 }
 
 .myp_bnt{
@@ -117,4 +174,6 @@
     margin-top: 10%;
     font-family: "AppleSDGothicNeoM";
     font-size: 17px;
+=======
+>>>>>>> 1b13f52777ecf83a2f6d96e6ecb704e394bd874f
 }
