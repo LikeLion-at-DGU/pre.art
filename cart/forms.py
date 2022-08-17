@@ -43,6 +43,14 @@ class PostForm(forms.ModelForm):
         ),
         required=True,
     )
+    post_name = forms.CharField(
+        label = '전시 제목',
+        widget = forms.TextInput(
+            attrs = {'placeholder':'전시 제목', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
+
+                ),
+        required=True,
+    )
     post_intro = forms.CharField(
         label = '전시 한줄 소개',
         widget = forms.TextInput(
@@ -108,7 +116,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
-            'realname', 'artist_name', 'team', 'email', 'artist_intro', 'post_intro', 'post_plan', 'post_price','startday', 'endday', 'post_place'
+            'realname', 'artist_name', 'team', 'email', 'artist_intro', 'post_name', 'post_intro', 'post_plan', 'post_price','startday', 'endday', 'post_place'
         ]
 
     def clean(self):
@@ -123,6 +131,7 @@ class PostForm(forms.ModelForm):
         post_plan = cleaned_data.get('post_plan', '')
         post_price = cleaned_data.get('post_price', '')
         post_place = cleaned_data.get('post_place', '')
+        post_name = cleaned_data.get('post_name', '')
         # option = cleaned_data.get('option', '')
         # post_img = cleaned_data.get('post_img','')
         startday = cleaned_data.get('startday','')
@@ -141,6 +150,7 @@ class PostForm(forms.ModelForm):
         self.post_plan = post_plan
         self.post_price = post_price
         self.post_place = post_place
+        self.post_name = post_name
         # self.option = option
         # self.post_img = post_img
         self.startday = startday
@@ -188,6 +198,14 @@ class PosteditForm(forms.ModelForm):
         ),
         required=True,
     )
+    post_name = forms.CharField(
+        label = '전시 이름',
+        widget = forms.TextInput(
+            attrs = {'placeholder':'전시 이름', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
+
+                ),
+        required=True,
+    )
     post_intro = forms.CharField(
         label = '전시 한줄 소개',
         widget = forms.TextInput(
@@ -223,15 +241,6 @@ class PosteditForm(forms.ModelForm):
         required=True,
     )
 
-    # option = forms.ChoiceField(
-    #     label = '승인상태(관리자용)',
-    #     choices=Post.option_choices,
-    # )
-
-    # post_img = forms.ImageField(
-    #     label= '전시 사진 첨부',
-    # )
-
     startday = forms.DateField(
         label = '후원 시작 일',
                 widget = forms.DateInput(
@@ -253,7 +262,7 @@ class PosteditForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
-            'realname', 'artist_name', 'team', 'email', 'artist_intro', 'post_intro', 'post_plan', 'post_price', 'startday', 'endday', 'post_place'
+            'realname', 'artist_name', 'team', 'email', 'artist_intro', 'post_name', 'post_intro', 'post_plan', 'post_price', 'startday', 'endday', 'post_place'
         ]
 
     def clean(self):
@@ -268,6 +277,7 @@ class PosteditForm(forms.ModelForm):
         post_plan = cleaned_data.get('post_plan', '')
         post_price = cleaned_data.get('post_price', '')
         post_place = cleaned_data.get('post_place', '')
+        post_name = cleaned_data.get('post_name', '')
         # option = cleaned_data.get('option', '')
         # post_img = cleaned_data.get('post_img','')
         startday = cleaned_data.get('startday','')
@@ -282,6 +292,7 @@ class PosteditForm(forms.ModelForm):
         self.post_plan = post_plan
         self.post_price = post_price
         self.post_place = post_place
+        self.post_name = post_name
         # self.option = option
         # self.post_img = post_img
         self.startday = startday
