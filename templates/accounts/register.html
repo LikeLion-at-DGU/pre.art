@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- newinfo page 입니다/ 처음 로그인시 회원 정보 받음 -->
+<div class="new_info">
+
+    <div class="new_text">PRE.ART와 함께해요!</div>
+    <div class="new_text">정확한 회원 정보를 위해 올바르게 입력해주세요</div>
+
+
+    <div class="error" style="color: #4C4646; margin-top: 1%;">
+            {{error}}
+    </div>
+
+    <div class="new_info_item">
+        <form class="new_form" action="{% url 'accounts:register' %}" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+
+            <div class="nini">
+                <div class="nitext">이름</div>
+                <div class="nibox"><input required type="text" name="name" id="name"></div>
+            </div>
+
+            <div class="nini">
+                <div class="nitext">E-mail</div>
+                <div class="nibox"><input required type="text" name="email" id="email"></div>
+            </div>
+
+            <div class="nini">
+                <div class="nitext">전화번호</div>
+                <div class="nibox"><input required type="text" name="phone" id="phone"></div>
+            </div>
+            
+            <div class="nibtn">
+                <button class="ninibtn" type="submit">확인</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

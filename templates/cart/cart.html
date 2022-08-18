@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    #btn2{
+        border-bottom: solid 8px #796453;
+        display: inline-block;
+        width: 120px;
+        height: 80px;
+        line-height: 80px;
+    }
+    .nav{
+        z-index: 100;
+    }
+</style>
+
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<div style="text-align: center;">
+    {% if not cart_items %}
+        <div>
+            <div class="empty_cart">
+                <br>
+                    Your cart is empty.
+                <br>
+                <p class="text-center">
+                    Please click <a href="{% url 'shop:allProdCat' %}" style="color: #DFD6CD;">here</a> to continue.
+                </p>
+            </div>
+        </div>
+    {% else %}
+    
+    <div class="your_cart">
+        YOUR CART
+    </div>
+
+    <div class="cart_1" style="clear: both;">
+        {% for cart_item in cart_items %}
+        <div>
+            <div style="float: left; width: 40%;">
+                <a href="{{cart_item.product.get_url}}"><img src="{{cart_item.product.image.url}}" alt="" class="cart_img"></a>
+            </div>
+            <div class="cart_detail" style="float: left;">
+                {{cart_item.product.name}}
+                
+                <br>
+                가격 : <span id="{{cart_item.product.name}}"></span>
+                <br>
+                수량 : {{cart_item.quantity}} X <span id="{{cart_item.product.name}}1"></span>
+            </div>
+            <script>
+                var money = {{cart_item.product.price}};
+                
+                function number(money){
+                    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+                document.getElementById("{{cart_item.product.name}}").innerHTML = number(money);
+                document.getElementById("{{cart_item.product.name}}1").innerHTML = number(money);
+            </script>
+            
+            <div class="cart_total" style="float: left;">
+                <span id="{{cart_item.product.name}}2"></span>
+            </div>
+            <script>
+                var money = {{cart_item.sub_total}};
+                
+                function number(money){
+                    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+                document.getElementById("{{cart_item.product.name}}2").innerHTML = number(money);
+            </script>
+
+            <div class="cart_count" style="float: left;">
+                <a href="{% url 'cart:add_cart' cart_item.product.id %}" class="custom_a">
+                    <i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;
+                <a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a">
+                    <i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
+                <a href="{% url 'cart:full_remove' cart_item.product.id %}"  class="custom_a">
+                    <i class="fas fa-trash-alt custom_icon"></i></a>
+            </div>
+        </div>
+        <hr style="clear: both; width: 100%;">
+    {% endfor %}
+    </div>
+
+    <div class="cart_2" style="clear: both;">
+            <div class="cart_re" style="text-align: center; width:100%;">
+                <div>Checkout</div>
+                <div>Please review your support before proceeding with the order payment.</div>
+                <div>Your total Support : <strong><span id="total"></span>원</strong></div>
+            </div>
+            <script>
+                var money = {{total}};
+                
+                function number(money){
+                    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+                document.getElementById("total").innerHTML = number(money);
+            </script>
+            
+            <div class="mx-auto">
+                <div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <script
+                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="{{ data_key }}"
+                      data-image="{% static 'img/logo.png' %}"
+                      data-name="PLATE-STUDIO"
+                      data-description="{{ description }}"
+                      data-amount="{{ stripe_total }}"
+                      data-label="Support Now!"
+                      data-currency="gbp"
+                      data-shpping-address="true"
+                      data-billing-address="true"
+                      data-zip-code="true">
+                    </script>
+                </form>
+                </div>
+                <div style="margin-top: 2%;">
+                <a href="{% url 'shop:allProdCat' %}" class="continue">Continue enjoying</a>
+                </div>
+            </div>
+    </div>
+
+
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+    // 모두 선택하기 함수
+    function selectAll(source){
+        var checkboxes = document.getElementsByName('checking');
+        for(var i=0;i<checkboxes.length;i++){
+            checkboxes[i].checked=source.checked;
+        }
+    };
+
+    // 필수 선택 경고창
+    function click_next(){
+        var chkboxes = document.getElementsByName('checking');
+        var chk = false;
+        for(var i=0;i<chkboxes.length;i++){
+            if(chkboxes[i].checked){
+                chk=true;
+            }else{
+                chk=false;
+            }
+        }
+
+        if(chk){
+            return true;
+        } else{
+            alert("모든 약관에 동의해주세요.");
+            return false;
+        }
+    };
+</script>
+
+<!-- chtest4만 css 안먹혀서 따로 빼둠 -->
+<style>
+
+    input#cbtest4{
+    display:none;
+  }
+
+.regist_check_all{
+  padding: 4% 1%;
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid #555;
+  width: 100%;
+  align-items:center;
+}
+
+</style>
+
+<div id="background">
+    <div class="regist_items">
+        <section>
+            <img class="regist_1_image" src="{% static 'img/regist.png'%}" alt="">
+        </section>
+
+        <section class="regist_2_box">
+
+            <div class="regist_text">
+                <a class="regist_line"><span>약관 동의를 시작해야 전시를 시작할 수 있어요</span></a>
+            </div>
+            
+            <div class="regist_check_box">
+                <div class="regist_check">
+                    <input type="checkbox" id="cbtest1" name="checking">
+                    <label for="cbtest1" class="cb1"></label>
+                    <div class="agree_text">위 프로젝트는 만 19세 이상이어야 합니다. (필수)</div>
+                </div>
+
+                <div class="regist_check">
+                    <input type="checkbox" id="cbtest2" name="checking">
+                    <label for="cbtest2" class="cb1"></label>
+                    <div class="agree_text">위 프로젝트는 본인이 직접해야 하며 본인 명의 전화번호와 이메일이 필요합니다. 타인에게 계정 양도는 불가합니다. (필수)</div>
+                </div>
+
+                <div class="regist_check">
+                    <input type="checkbox" id="cbtest3" name="checking">
+                    <label for="cbtest3" class="cb1"></label>
+                    <div class="agree_text">펀딩 이후 정산을 위해 신분증 및 국내 은행 계좌를 준비해주세요. (필수)</div>
+                </div>
+
+                <div class="regist_check_all">
+                    <input type="checkbox" id="cbtest4" name="checking" onclick="selectAll(this)">
+                    <label for="cbtest4" class="cb1"></label>
+                    <div class="agree_text">전체 동의</div>
+                </div>
+
+            </div>
+            <div class="regist_bnt2"><a style="text-decoration: none" class = "regist_next" href="{% url 'cart:regist_3' %}" onclick="return click_next();">다음</a></div>
+            
+
+        </section>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="bwrite_1">질문 작성하기</div>
+
+<div class="bwrite_2">
+    
+  <form class="bwrite_2_1" action="{% url 'board:board_write' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="bwrite_formbox">
+
+            <div id="bwrite2_form">
+              <div id="bwrite2_form_title">제목</div>
+              <div id="bwrite2_form_input"><input type="text" name="title" id="bwrite2_form_input_1"></div>
+            </div>
+
+            <div id="bwrite2_form">
+              <div id="bwrite2_form_title">내용</div>
+              <div id="bwrite2_form_input"><textarea type="text" name="contents" id="bwrite2_form_input_2"></textarea></div>
+            </div>
+
+        </div>
+
+
+        {% if user.is_authenticated %}
+        <div class="bwrite_btn">
+          <button type="submit" id="bwrite_btn">질문등록</button>
+        </div>
+        {% else %}
+        <div class="bwrite_btn">
+          <a id="bwrite_btn" onClick="alert('로그인 후 이용해주세요.')">질문등록</a>
+        </div>
+        {% endif %}
+
+    </form>
+</div>
+<script src="{% static 'js/textarea_resize.js' %}"></script>
+
+{% endblock %}

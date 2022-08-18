@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <style>
+        #btn2, #funding_btn1{
+            border-bottom: solid 8px #796453;
+            display: inline-block;
+            width: 120px;
+            height: 80px;
+            line-height: 80px;
+            
+        }
+        .fund_btn{
+            width: 120px;
+            height: 80px;
+            line-height: 80px;
+        }
+        .nav{
+            z-index: 100;
+        }
+        .top{
+            width: 100%;
+            text-align: center;
+            height: 5px;
+            line-height: 5px;
+            padding-top: 3%;
+        }
+.outer {
+    border: none;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+
+}
+  
+.inner-list {
+    display: inline-flex;
+    transition: .5s ease-out;
+    height: 100%;
+    width: 100%;
+}
+  
+.inner {
+    max-width: 100%;
+    height: 90%;
+    border-radius: 20px;
+}
+    </style>
+
+    <link rel="stylesheet" href="{% static 'css/funding.css' %}">
+
+    <p class="top"><a href = "{% url 'shop:allProdCat' %}">Home</a> | {{post.realname}}</p>
+
+    <div class="funding_1">
+
+        <div class="funding_title" style="overflow: hidden; display: inline-flex; flex-direction: column;">
+
+            <div style="overflow: hidden; max-height: 85%; width: 100%;">
+
+                
+                <div class="title" style="padding-left: 15%; width: 100%;">{{post.realname}}</div>
+                
+                
+                <div style="display: inline-flex; width: 100%;">
+                    
+                    
+                    <div class="picture" style="width: 70%; max-height: 520px; margin-left: 3%;">
+                        <!-- <img src="{{post.image.url}}" style="width: 100%; height: 500px;"/> -->
+                        
+                        <div style="width:100%;">
+                        <div class="outer">
+                            <div class="inner-list" style="width: 100%;">
+                                {% for i in post.image.all %}
+                                <img class="inner" src = "{{i.image.url}}" alt = "{{post.realname}}" style="width: 100%; height: 500px;">
+                                {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- js 적용했기 때문에 아래 주석처리하면 이미지 자동 전환이 안됩니다.. 
+                            아래 주석처리 하지 말아주세요 -->
+                        <div class="button-list" style="display:none;">
+                            <button class="button-left">← Left</button>
+                            <button class="button-right">Right →</button>
+                        </div>
+
+
+                    </div>
+                    <div style="width: 30%;">
+                    <button class="like" style="width: 100%; height: 10%; margin-right: 20%;"><i class="fa-solid fa-heart" style="color: #FD7777;"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="funding_percent" style="display: inline-flex; width: 100%;">
+                <span style="width: 10%;">펀딩 달성률</span>
+                <progress class="progressTag" value="95" max="100" style="width:70%;"></progress>
+                <span style="width: 10%;">95%</span>
+            </div>
+        </div>
+        <script src="{% static 'js/banner.js' %}"></script>
+
+        <div class="funding_content" style="padding-left: 0;">
+            <div class="money_1">
+                <div id="content_detail" style="padding-top: 140px;">모인금액</div><br>
+                <span id="current_money"></span> 원
+            </div>
+            <script>
+                var money = {{product.price}}; // 모인 금액
+                
+                function number(money){
+                    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+                document.getElementById("current_money").innerHTML = number(money);
+            </script>
+            <div class="time" style="padding-top: 80px;">
+                <div id="content_detail">남은기간</div><br>
+                <div><span id="detail_day"></span>일</div>
+            </div>
+            <script>
+                const finalDay1 = "{{post.endday|date:'Y-m-d'}}"
+          
+                function CalcDday(finalDay) {
+                    var today = new Date();
+                    finalDay = new Date(finalDay);
+                    var year = today.getFullYear();
+                    var month = ('0'+(today.getMonth() +1)).slice(-2);
+                    var day = ('0'+today.getDate()).slice(-2);
+          
+                    var dateString = year + '-' + month + '-' + day;
+                    dateString = new Date(dateString);
+          
+                    var dday = Math.ceil(((finalDay.getTime() - dateString.getTime()) / (1000*24*60*60)));
+                          
+                    if (dday === 0){
+                        return "D-day"
+                    }
+                    else{
+                        return dday;
+                    }
+                }
+          
+                document.getElementById("detail_day").innerHTML = CalcDday(finalDay1); 
+          
+            </script>            
+            <script src="{% static 'js/dday.js' %}"></script>
+
+
+            <div class="sponsor" style="padding-top: 80px;">
+                <div id="content_detail">후원자</div><br>
+                명
+            </div>
+        </div>
+
+        <div class="pr" style="width: 100%;">"{{post.post_intro}}"</div>
+    </div>
+
+    <div class="funding_2" style="display: inline-flex; width: 100%;">
+        <div class="funding_detail" style="width: 70%;">
+            <div class="money_2" style="display: inline-flex; width: 100%;">
+                <div id="funding_detail_title" style="width: 30%;">목표금액</div>
+                <div id="funding_detail" style="width: 70%;"><span id="money"></span>원</div><!-- js로 원 단위 표시하기 -->
+                <script>
+                    var money = {{post.post_price}}; // 목표 금액
+                    
+                    function number(money){
+                        return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+
+                    document.getElementById("money").innerHTML = number(money);
+                </script>
+            </div>
+
+
+            <div class="time_2" style="display: inline-flex; width: 100%;">
+                <div id="funding_detail_title" style="width: 30%;">펀딩기간</div>
+                <div id="funding_detail" style="width: 70%;">{{ post.startday }} ~ {{ post.endday }}</div>
+            </div>
+
+
+            <div class="cash" style="display: inline-flex; width: 100%;">
+                <div id="funding_detail_title" style="width: 30%;">결제</div>
+                <div id="funding_detail" style="width: 70%;">목표금액 달성시 <span id="detail_day1">{{post.endday}}</span>에 결제 진행</div>
+            </div>
+            <script>
+                var money = {{product.price}}; // 모인 금액
+                
+                function number(money){
+                    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+
+                document.getElementById("current_money").innerHTML = number(money);
+            </script>
+
+        </div>
+
+        <div style="width: 60%; text-align: center; margin: 2% 0; margin-right: -15%;">
+            <a href="{% url 'cart:add_cart' post.id %}" class="spon_btn" style="width: 30%;"><span style="text-align: center;">후원하기</span></a>
+        </div>
+        
+    </div><hr class="hr_1"><br/>
+
+    <div class="funding_3" style="display:inline-flex; height: 180px; width: 100%;">
+        <div class="author" style="width: 40%;">
+            <!-- <img class="profile_1" src="{% static 'img/author_profile.png' %}" style="width: 150px; height: 150px; padding: 0;"/> -->
+            <div class="profile_2" style="padding: 40px 15%; border-right: 1px solid #796453; width: 50%;">
+                <div class="name" style="font-size: 30px;">{{post.artist_name}}</div>
+                <div class="last_login">{{post.team}}</div>
+            </div>
+        </div>
+        <button class="follow_btn" style="width: 15%;">
+            <span>+팔로우</span>
+        </button>
+        <a href="#" class="qna_btn" style="width: 20%; margin-left: 5%;">
+            <span>창작자에게 문의</span>
+        </a>
+    </div>
+    <!-- </div><hr class="hr_2">
+    
+    <div class="funding_4">
+        <div class="funding_bar">
+            <label class="fund_btn"><input id="funding_btn1" type="radio" checked style="display: ;"><span>전시계획</span></label>
+            <label class="fund_btn"><input id="funding_btn2" type="radio"><span>업데이트</span></label>
+            <label class="fund_btn"><input id="funding_btn3" type="radio"><span>Q&A</span></label>
+            <label class="fund_btn"><input id="funding_btn4" type="radio"><span>추천</span></label> -->
+            <!-- <button class="fund_btn" id="funding_btn1" style="width: 150px;">전시계획</button>
+            <button class="fund_btn" id="funding_btn2" style="width: 150px;">업데이트</button>
+            <button class="fund_btn" id="funding_btn3" style="width: 150px;">Q&A</button>
+            <button class="fund_btn" id="funding_btn4" style="width: 150px;">추천</button>
+            <hr class="hr_3" style="margin-top: 0px;">
+        </div>
+        <div class="under_content">
+            <div id="under_1">
+                <button class="underbtn" id="underbtn_1"><span>소개</span></button>
+                <button class="underbtn" id="underbtn_2"><span>예산</span></button>
+                <button class="underbtn" id="underbtn_3"><span>일정</span></button>
+                <button class="underbtn" id="underbtn_4"><span>작가소개</span></button>
+                <button class="underbtn" id="underbtn_5"><span>신뢰와 안전</span></button>
+            </div>
+            <div id="under_2">
+                업데이트 내용 입력
+            </div>
+            <div id="under_3">
+                Q&A 내용
+            </div>
+            <div id="under_4">
+                추천 내용
+            </div>
+        </div>
+    </div>
+    <div style="clear: both; float: right;"><a class="btn btn-secondary" href = "#">(test용)장바구니 담기</a></div>
+     url 'cart:add_cart' product.id  -->
+{% endblock %}
