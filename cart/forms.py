@@ -1,18 +1,18 @@
 from distutils.command.clean import clean
 from email.policy import default
-import re
 from django import forms
 from .models import Post
-from tag.models import Tag
+import re
 
 class PostForm(forms.ModelForm):
+
     realname = forms.CharField(
         label = '작가 본명',
         widget = forms.TextInput(
             attrs = {
                 'placeholder':'작가 본명', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
         ),
-        required=True,
+        # required=True,
     )
     artist_name = forms.CharField(
         label = '작가 활동명',
@@ -20,7 +20,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'작가 활동명', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
         ),
-        required=True,
+        # required=True,
     )
     team = forms.CharField(
         label = '작가 소속',
@@ -28,7 +28,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'작가 소속', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
         ),
-        required=True,
+        # required=True,
     )
     email = forms.EmailField(
         label = '작가 이메일',
@@ -36,7 +36,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'작가 이메일', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
         ),
-        required=True,
+        # required=True,
     )
     artist_intro = forms.CharField(
         label = '작가 한줄 소개',
@@ -44,7 +44,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'작가 한줄 소개', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
         ),
-        required=True,
+        # required=True,
     )
     post_name = forms.CharField(
         label = '전시 제목',
@@ -52,7 +52,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'전시 제목', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
     post_intro = forms.CharField(
         label = '전시 한줄 소개',
@@ -60,11 +60,11 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'전시 한줄 소개', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
     
     tag = forms.CharField(
-    required=True,
+    # required=True,
     label="태그",
     widget = forms.TextInput(
         attrs = {
@@ -78,7 +78,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'전시 기획 의도', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
 
     post_price = forms.DecimalField(
@@ -87,7 +87,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'전시 목표 가격', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
 
     post_place = forms.CharField(
@@ -96,7 +96,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'전시 장소', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
 
     startday = forms.DateField(
@@ -105,7 +105,7 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'후원 시작 일 (예시)2022-01-01', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
 
     endday = forms.DateField(
@@ -114,15 +114,9 @@ class PostForm(forms.ModelForm):
             attrs = {'placeholder':'후원 마감 일 (예시)2022-01-01', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
 
                 ),
-        required=True,
+        # required=True,
     )
-    main_image = forms.ImageField(
-        label = '전시 메인 이미지',
-        widget=forms.FileInput(
-            attrs = {'placeholder':'전시 메인 이미지', 'style':'box-shadow: 0 2px #796453; border: none;outline: none; -webkit-appearance: none; width:95%'}
-        ),
-        required=True,
-    )
+    
 
     class Meta:
         model = Post

@@ -35,11 +35,11 @@ class Post(models.Model):
     endday = models.DateField(null=True)
 
     # 좋아요 추가
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     like_user_set = models.ManyToManyField(User, blank=True, related_name='likes_user_set', through='Like')
 
     # product 모델 합치기
-    post_name = models.CharField(max_length=100, null=True, blank=True) # 전시회 이름
+    post_name = models.TextField(max_length=100, null=True, blank=True) # 전시회 이름
     main_image = models.ImageField(upload_to='post_image/', blank=True) # 전시회 메인 사진
     # category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     # slug = models.SlugField(max_length=250, unique=True, null=True)
